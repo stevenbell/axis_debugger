@@ -1,0 +1,4 @@
+You're trying to debug some AXI-stream device, probably because it's spewing out a few too many bytes, or one too few, or not asserting the TLAST signal.  You would use the Integrated Logic Analyzer, but even the large capture windows are too small, and integrating the ILA requires re-running synthesis and place-and-route.
+
+You need something small enough that you can build it into your design all the time during development, but which will provide the essential information for debugging the stream behavior.  That's the goal of the **axis_debugger**.
+
