@@ -1,23 +1,16 @@
 
 `timescale 1 ns / 1 ps
 
-	module axis_debugger_v1_0_S_AXI_LITE #
+	module axis_debugger_controlregs #
 	(
-		// Users to add parameters here
-
-		// User parameters ends
-		// Do not modify the parameters beyond this line
-
 		// Width of S_AXI data bus
 		parameter integer C_S_AXI_DATA_WIDTH	= 32,
 		// Width of S_AXI address bus
 		parameter integer C_S_AXI_ADDR_WIDTH	= 5
 	)
 	(
-		// Users to add ports here
-
-		// User ports ends
-		// Do not modify the ports beyond this line
+    input wire [31:0] byte_count,
+    input wire [31:0] tlast_count,
 
 		// Global Clock Signal
 		input wire  S_AXI_ACLK,
@@ -410,8 +403,8 @@
 	begin
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        3'h0   : reg_data_out <= slv_reg0;
-	        3'h1   : reg_data_out <= slv_reg1;
+	        3'h0   : reg_data_out <= byte_count;
+	        3'h1   : reg_data_out <= tlast_count;
 	        3'h2   : reg_data_out <= slv_reg2;
 	        3'h3   : reg_data_out <= slv_reg3;
 	        3'h4   : reg_data_out <= slv_reg4;
