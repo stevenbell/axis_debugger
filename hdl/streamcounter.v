@@ -24,13 +24,15 @@ module streamcounter #
   
     // Report registers
     output reg [31:0] byte_count,
-    output reg [31:0] tlast_count
+    output reg [31:0] tlast_count,
+    output reg [31:0] last_tlast
   );
 
   always @(posedge clk) begin
     if (~resetn) begin
       byte_count <= 0;
       tlast_count <= 0;
+      last_tlast <= 0;
     end
 
     // Byte counter
@@ -39,8 +41,9 @@ module streamcounter #
     end
 
     // TLAST counter
-    if(input_s_axis_tlast & output_m_axis_tready) begin
-      tlast_count <= tlast_count + C_AXIS_BYTEWIDTH;
+    if(input_s_axis_tlast & input_s_axis_tvalid & output_m_axis_tready) begin
+      tlast_count <= tlast_count + 1;
+      last_tlast <= byte_count + C_AXIS_BYTEWIDTH; // Include the current beat
     end
   end
 

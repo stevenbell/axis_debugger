@@ -50,6 +50,7 @@
 
   wire[31:0] byte_count;
   wire[31:0] tlast_count;
+  wire[31:0] last_tlast;
 
   streamcounter # (
     .C_AXIS_BYTEWIDTH(C_AXIS_BYTEWIDTH)
@@ -73,7 +74,8 @@
   
     // Report registers
     .byte_count(byte_count),
-    .tlast_count(tlast_count)
+    .tlast_count(tlast_count),
+    .last_tlast(last_tlast)
   );
 
 
@@ -104,7 +106,8 @@
     .S_AXI_RVALID(s_axi_lite_rvalid),
     .S_AXI_RREADY(s_axi_lite_rready),
     .byte_count(byte_count),
-    .tlast_count(tlast_count)
+    .tlast_count(tlast_count),
+    .last_tlast(last_tlast)
   );
 
   endmodule

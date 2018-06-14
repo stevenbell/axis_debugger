@@ -11,6 +11,7 @@
 	(
     input wire [31:0] byte_count,
     input wire [31:0] tlast_count,
+    input wire [31:0] last_tlast,
 
 		// Global Clock Signal
 		input wire  S_AXI_ACLK,
@@ -405,7 +406,7 @@
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
 	        3'h0   : reg_data_out <= byte_count;
 	        3'h1   : reg_data_out <= tlast_count;
-	        3'h2   : reg_data_out <= slv_reg2;
+	        3'h2   : reg_data_out <= last_tlast;
 	        3'h3   : reg_data_out <= slv_reg3;
 	        3'h4   : reg_data_out <= slv_reg4;
 	        3'h5   : reg_data_out <= slv_reg5;
